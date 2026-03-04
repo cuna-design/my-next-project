@@ -22,7 +22,6 @@ export type News = {
   content: string;
   thumbnail?: MicroCMSImage;
   category: Category;
-  publishedAt: string;
 } & MicroCMSListContent;
 
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
@@ -68,6 +67,7 @@ export const getNewsDetail = async (
       },
     },
   });
+
   return detailData;
 };
 
@@ -82,4 +82,20 @@ export const getCategoryDetail = async (
   });
 
   return detailData;
+};
+
+export const getAllNewsList = async () => {
+  const listData = await client.getAllContents<News>({
+    endpoint: "news",
+  });
+
+  return listData;
+};
+
+export const getAllCategoryList = async () => {
+  const listData = await client.getAllContents<Category>({
+    endpoint: "categories",
+  });
+
+  return listData;
 };
